@@ -32,5 +32,5 @@ jobs:
 
     - name: Test Lint # With flake8
       run: | # exit-zero serve para evitar que o workflow falhe com os erros
-        flake8 --config=my-only-config.ini --exit-zero --format mysite/ 
+        flake8 --config=my-only-config.ini --exit-zero mysite/ 
 
