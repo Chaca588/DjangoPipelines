@@ -35,7 +35,7 @@ jobs:
         python3 mysite/manage.py runserver &
 
     - name: Run ZAP scan
-      uses: ./.github/actions/zapproxy-action/zapproxy-full
+      uses: ./.github/actions/zapproxy-action
       with:
         target: 'http://127.0.0.1:8000'
         report: 'testreport.html'
