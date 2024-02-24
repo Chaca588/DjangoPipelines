@@ -9,7 +9,6 @@ inputs:
   target:
     description: 'Target URL for ZAP scan'
     required: true
-    default: 'https://www.example.com'
 
   report:
     description: 'Report file name'
