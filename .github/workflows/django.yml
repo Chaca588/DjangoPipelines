@@ -30,7 +30,7 @@ jobs:
       run: |
         python3 mysite/manage.py runserver & 
 
-    - name: Test Lint with flake8
+    - name: Test Lint # With flake8
       run: |
-        flake8 --ignore=W292 --format mysite/
+        flake8 --ignore=W292 mysite/
 
