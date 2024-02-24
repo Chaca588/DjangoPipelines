@@ -26,6 +26,6 @@ jobs:
       run: |
         python3 -m pip install --upgrade pip
         pip install -r requirements.txt
-    - name: Run Tests
+    - name: Run Server
       run: |
-        python3 mysite/manage.py runserver &
+        python3 mysite/manage.py runserver
