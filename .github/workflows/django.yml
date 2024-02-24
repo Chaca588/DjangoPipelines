@@ -30,4 +30,7 @@ jobs:
       run: |
         python3 mysite/manage.py runserver & 
 
-    - name: 
+    - name: Test Lint with flake8
+      run: |
+        flake8 mysite/
+
