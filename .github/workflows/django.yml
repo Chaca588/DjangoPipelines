@@ -32,5 +32,5 @@ jobs:
 
     - name: Test Lint with flake8
       run: |
-        flake8 --ignore=W --format mysite/
+        flake8 --ignore=W292 --format mysite/
 
