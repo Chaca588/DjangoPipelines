@@ -64,12 +64,12 @@ jobs:
         uses: github/codeql-action/analyze@v3
         with:
           upload: False
-          output: sarif-results
+          output: sarif-results.sarif
     
       - name: Upload SARIF
         uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: python-code-results.sarif
+          sarif_file: sarif-results.sarif
           #category: "/language:${{matrix.language}}"
 
 
