@@ -33,25 +33,23 @@ jobs:
         flake8 --config=my-only-config.ini --exit-zero mysite/
 
   analyze:
-      name: Analyze
-      runs-on: ubuntu-latest
-      concurrency:
-        group: ${{ github.workflow }}-${{ matrix.language }}-${{ github.ref }}
-        cancel-in-progress: true
-      permissions:
-        # required for all workflows
-        security-events: write
+    name: Analyze
+    runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
+    timeout-minutes: ${{ (matrix.language == 'swift' && 120) || 360 }}
+    permissions:
+      # required for all workflows
+      security-events: write
 
-        # only required for workflows in private repositories
-        actions: read
-        contents: read
+      # only required for workflows in private repositories
+      actions: read
+      contents: read
 
-      strategy:
-        fail-fast: false
-        matrix:
-          language: ['python']
+    strategy:
+      fail-fast: false
+      matrix:
+        language: ['python']
 
-      steps:
+    steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
