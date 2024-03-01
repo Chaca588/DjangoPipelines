@@ -39,8 +39,12 @@ jobs:
         group: ${{ github.workflow }}-${{ matrix.language }}-${{ github.ref }}
         cancel-in-progress: true
       permissions:
-        actions: read
+        # required for all workflows
         security-events: write
+
+        # only required for workflows in private repositories
+        actions: read
+        contents: read
 
       strategy:
         fail-fast: false
@@ -57,19 +61,10 @@ jobs:
           languages: ${{ matrix.language }}
           queries: +security-extended,security-and-quality
 
-      - name: Autobuild
-        uses: github/codeql-action/autobuild@v3
-
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
         with:
-          upload: False
-          output: sarif-results.sarif
-    
-      - name: Upload SARIF
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: sarif-results.sarif
-          #category: "/language:${{matrix.language}}"
+          category: "/language:${{matrix.language}}"
+          upload: "always"
 
 
