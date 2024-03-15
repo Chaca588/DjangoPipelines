@@ -36,19 +36,16 @@ jobs:
     
 
   analyze:
-      name: Analyze
-      runs-on: ubuntu-latest
-      concurrency:
-        group: ${{ github.workflow }}-${{ matrix.language }}-${{ github.ref }}
-        cancel-in-progress: true
-      permissions:
-        actions: read
-        security-events: write
+    name: Analyze
+    runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
+    timeout-minutes: ${{ (matrix.language == 'swift' && 120) || 360 }}
+    permissions:
+      # required for all workflows
+      security-events: write
 
-      strategy:
-        fail-fast: false
-        matrix:
-          language: ['python']
+      # only required for workflows in private repositories
+      actions: read
+      contents: read
 
       uses: Chaca588/DjangoPipelines/.github/workflows/analyzesCodeQL.yml@main
 
