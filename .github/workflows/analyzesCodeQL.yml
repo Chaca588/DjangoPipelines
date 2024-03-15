@@ -33,8 +33,8 @@ jobs:
         upload: False
         output: sarif-results
   
-    - name: Upload SARIF
-      uses: github/codeql-action/upload-sarif@v3
-      with:
-        sarif_file: ./python.sarif
-        category: "/language:${{matrix.language}}"
+    # - name: Upload SARIF
+    #   uses: github/codeql-action/upload-sarif@v3
+    #   with:
+    #     sarif_file: ${{ inputs.sarif_path }}
+    #     category: "/language:${{matrix.language}}"
