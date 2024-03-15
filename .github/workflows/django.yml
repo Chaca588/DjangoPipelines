@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  testlint:
     runs-on: ubuntu-latest
     permissions: write-all
     strategy:
@@ -29,8 +29,11 @@ jobs:
         pip install -r requirements.txt
 
     - name: Test Lint # With flake8
+      
       run: | # exit-zero serve para evitar que o workflow falhe com os erros
         flake8 --config=my-only-config.ini --exit-zero mysite/
+    
+    
 
   analyze:
       name: Analyze
@@ -47,29 +50,5 @@ jobs:
         matrix:
           language: ['python']
 
-      steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v3
-        with:
-          languages: ${{ matrix.language }}
-          queries: +security-extended,security-and-quality
-
-      - name: Autobuild
-        uses: github/codeql-action/autobuild@v3
-
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v3
-        with:
-          upload: False
-          output: sarif-results
-    
-      - name: Upload SARIF
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: ./python.sarif
-          category: "/language:${{matrix.language}}"
-
+      uses: Chaca588/DjangoPipelines/.github/workflows/analyzesCodeQL.yml@main
 
