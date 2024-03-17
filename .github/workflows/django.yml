@@ -34,3 +34,13 @@ jobs:
         language: ['python']
     uses: Chaca588/DjangoPipelines/.github/workflows/analyzesCodeQL.yml@main
 
+
+  DockerBuildPush:
+    permissions: write-all
+    needs: [Analyze, Test_lint]
+    strategy:
+      matrix:
+        python-version: ["3.11"] #, "3.10"]
+    uses: Chaca588/DjangoPipelines/.github/workflows/containerPublisher.yml@main
+    with:
+      REGISTRY: ghcr.io
