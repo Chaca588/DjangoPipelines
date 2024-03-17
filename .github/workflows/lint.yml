@@ -1,0 +1,31 @@
+name: Reusable CodeQL Analyzes
+on: 
+  workflow_call:
+    inputs:
+      var:
+        description: "Variavel que vem do
+        workflow que chama este workflow"
+        required: False
+        type: string
+
+jobs:
+  lint:
+    name: Lint-Reusable
+    runs-on: ubuntu-latest
+    
+    steps:
+        - uses: actions/checkout@v4
+        - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+            python-version: ${{ matrix.python-version }}
+            cache: 'pip' # Cache da instalação das dependecias para ser mais rapido
+        - name: Install Dependencies
+        run: |
+            python3 -m pip install --upgrade pip
+            pip install -r requirements.txt
+
+        - name: Test Lint # With flake8
+        run: | # exit-zero serve para evitar que o workflow falhe com os erros
+            flake8 --config=my-only-config.ini --exit-zero mysite/
+        
