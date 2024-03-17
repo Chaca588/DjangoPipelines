@@ -1,12 +1,6 @@
 name: Reusable CodeQL Analyzes
 on: 
   workflow_call:
-    inputs:
-      var:
-        description: "Variavel que vem do
-        workflow que chama este workflow"
-        required: False
-        type: string
 
 jobs:
   lint:
