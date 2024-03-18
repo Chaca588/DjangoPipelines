@@ -6,6 +6,8 @@ jobs:
   lint:
     name: Lint-Reusable
     runs-on: ubuntu-latest
+    matrix:
+        python-version: ${{ matrix.python-version }}
     
     steps:
         - uses: actions/checkout@v4
