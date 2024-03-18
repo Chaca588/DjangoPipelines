@@ -1,20 +1,22 @@
 name: Reusable CodeQL Analyzes
 on: 
   workflow_call:
+    inputs:
+        python-version:
+            required: true
+            type: string
 
 jobs:
   lint:
     name: Lint-Reusable
     runs-on: ubuntu-latest
-    matrix:
-        python-version: ${{ matrix.python-version }}
     
     steps:
         - uses: actions/checkout@v4
-        - name: Set up Python ${{ matrix.python-version }}
+        - name: Set up Python ${{ inputs.python-version }}
           uses: actions/setup-python@v5
           with:
-            python-version: ${{ matrix.python-version }}
+            python-version: ${{ inputs.python-version }}
             cache: 'pip' # Cache da instalação das dependecias para ser mais rapido
         - name: Install Dependencies
           run: |
