@@ -38,7 +38,7 @@ jobs:
 
 
   Zaproxy:
-    runs-on: ubuntu-lastest
+    runs-on: ubuntu-latest
     name: Run server
 
     steps:
