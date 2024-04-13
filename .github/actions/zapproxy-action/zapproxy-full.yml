@@ -1,10 +1,6 @@
 name: 'ZAP Scan Action'
 description: 'Run ZAP full scan on a target'
 
-runs:
-  using: 'docker'
-  image: 'Dockerfile'
-
 inputs:
   target:
     description: 'Target URL for ZAP scan'
