@@ -10,8 +10,6 @@ inputs:
     description: 'Target URL for ZAP scan'
     required: true
 
-  - uses: actions/checkout@v4
-
         # - name: Install Dependencies
         #   run: |
         #     touch txt.txt
