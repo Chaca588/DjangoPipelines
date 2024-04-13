@@ -10,7 +10,30 @@ inputs:
     description: 'Target URL for ZAP scan'
     required: true
 
-  report:
-    description: 'Report file name'
-    required: true
-    default: 'testreport.html'
+  - uses: actions/checkout@v4
+
+        # - name: Install Dependencies
+        #   run: |
+        #     touch txt.txt
+        #     ls
+        
+
+  - name: ZAP Scan
+    uses: zaproxy/action-baseline@master
+    with:
+      token: ${{ secrets.GITHUB_TOKEN }}
+      target: ${{ inputs.target }}
+
+  - name: List Dir
+    run: |
+      ls
+  
+  - name: Commit changes
+    run: |
+      git config --global user.name "${{ github.actor }}"
+      git add report_html.html
+      git commit -m "Update Zap Report"
+      git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+      git push
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

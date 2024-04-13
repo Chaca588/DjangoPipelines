@@ -19,7 +19,7 @@ jobs:
     with:
       python-version: ${{ matrix.python-version }}
 
-    
+      
   Analyze:
     concurrency:
       group: ${{ github.workflow }}-${{ matrix.language }}-${{ github.ref }}
@@ -37,9 +37,23 @@ jobs:
     uses: Chaca588/DjangoPipelines/.github/workflows/analyzesCodeQL.yml@main
 
 
+  Zaproxy:
+    runs-on: ubuntu-lastest
+    name: Run server
+
+    steps:
+      - name: Run server
+        run: |
+          python mysite/manage.py runserver
+      
+      - uses: Chaca588/DjangoPipelines/.github/actions/zapproxy-action/zapproxy-full.yml@main
+        with:
+          target: 'http://0.0.0.0:8000/'
+
+
   DockerBuildPush:
     permissions: write-all
-    needs: [Analyze, Test_lint]
+    needs: [Analyze, Zaproxy, Test_lint]
     strategy:
       matrix:
         python-version: ["3.11"] #, "3.10"]
