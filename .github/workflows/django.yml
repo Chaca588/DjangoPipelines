@@ -40,6 +40,7 @@ jobs:
   Zaproxy:
     runs-on: ubuntu-latest
     name: Run server
+    permissions: write-all
 
     steps:
       - uses: actions/checkout@v4
