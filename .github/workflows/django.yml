@@ -44,7 +44,7 @@ jobs:
     steps:
       - name: Run server
         run: |
-          python mysite/manage.py runserver
+          python mysite/manage.py runserver &
       
       - uses: Chaca588/DjangoPipelines/.github/actions/zapproxy-action/zapproxy-full.yml@main
         with:
