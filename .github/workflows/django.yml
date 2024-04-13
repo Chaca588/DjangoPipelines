@@ -44,6 +44,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install Dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install -r requirements.txt
+
       - name: Run server
         run: |
           python mysite/manage.py runserver &
@@ -53,7 +58,7 @@ jobs:
         uses: zaproxy/action-baseline@master
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          target: ${{ inputs.target }}
+          target: 'http://0.0.0.0:8000/'
   
       - name: List Dir
         run: |
